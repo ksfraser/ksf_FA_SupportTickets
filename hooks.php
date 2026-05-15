@@ -7,6 +7,7 @@ define('SS_SUPPORT', 136 << 8);
 
 class hooks_fa_supporttickets extends hooks {
     var $module_name = 'fa_supporttickets';
+    var $version = '1.0.0';
 
     function install_options($app) {
         global $path_to_root;
