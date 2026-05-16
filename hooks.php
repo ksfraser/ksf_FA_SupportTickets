@@ -5,9 +5,9 @@
 
 define('SS_SUPPORT', 136 << 8);
 
-class hooks_fa_supporttickets extends hooks {
-    var $module_name = 'fa_supporttickets';
-    var $version = '1.0.0';
+class hooks_ksf_FA_SupportTickets extends hooks {
+    var $module_name = 'ksf_FA_SupportTickets';
+    var $version = '2.4.0';
 
     function install_options($app) {
         global $path_to_root;
@@ -32,6 +32,13 @@ class hooks_fa_supporttickets extends hooks {
         $security_areas['SA_STCREATE'] = array(SS_SUPPORT | 2, _("Create Tickets"));
         $security_areas['SA_STMANAGE'] = array(SS_SUPPORT | 3, _("Manage Tickets"));
         return array($security_areas, $security_sections);
+    }
+
+    function install_extension($check_only=true) {
+        return true;
+    }
+
+    function install_tabs($app) {
     }
 
     function activate_extension($company, $check_only=true) {
