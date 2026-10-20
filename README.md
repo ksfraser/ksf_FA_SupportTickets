@@ -85,11 +85,11 @@ After installation, configure the following in the module:
 
 ### Main Tables
 
-#### fa_st_tickets
+#### ksf_supporttickets_tickets
 Main tickets table storing all support ticket data.
 
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_number` VARCHAR(30) NOT NULL,
     `subject` VARCHAR(255) NOT NULL,
@@ -118,11 +118,11 @@ CREATE TABLE `@TB_PREF@fa_st_tickets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_activities
+#### ksf_supporttickets_tickets_activities
 Activity log for tickets (calls, emails, meetings).
 
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_activities` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_activities` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `activity_type` VARCHAR(20) NOT NULL,
@@ -144,11 +144,11 @@ CREATE TABLE `@TB_PREF@fa_st_tickets_activities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_notes
+#### ksf_supporttickets_tickets_notes
 Notes and comments on tickets.
 
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_notes` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_notes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `note` TEXT NOT NULL,
@@ -160,11 +160,11 @@ CREATE TABLE `@TB_PREF@fa_st_tickets_notes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_items
+#### ksf_supporttickets_tickets_items
 Service items and costs associated with tickets.
 
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_items` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_items` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `item_type` VARCHAR(20) DEFAULT 'Service',

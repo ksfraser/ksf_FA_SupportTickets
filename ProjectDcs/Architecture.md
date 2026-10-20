@@ -164,7 +164,7 @@ EventManager::listen('warranty.claimed', function($event) { ... })
          │ 1:N                       │ N:1
          ▼                          ▼
 ┌────────────────────────────────────────────────────────┐
-│              fa_st_tickets                             │
+│              ksf_supporttickets_tickets                             │
 │ ┌──────────────────────────────────────────────────┐ │
 │ │ id (PK)                                           │ │
 │ │ ticket_number (UK)                                │ │
@@ -173,7 +173,7 @@ EventManager::listen('warranty.claimed', function($event) { ... })
 │ │ type, status, priority                           │ │
 │ │ debtor_no (FK) ──────────► debtors_master        │ │
 │ │ contact_id (FK) ──────────► contacts           │ │
-│ │ warranty_id (FK) ────────► fa_wm_liability   │ │
+│ │ warranty_id (FK) ────────► ksf_warrantymanagement_liability   │ │
 │ │ assigned_to (FK) ────────► employees           │ │
 │ │ team_id (FK) ────────────► fa_st_teams        │ │
 │ │ project_id (FK) ────────► fa_pm_projects      │ │
@@ -184,10 +184,10 @@ EventManager::listen('warranty.claimed', function($event) { ... })
                           │ 1:N
                           ▼
 ┌──────────────────────────┬─────────────────────────┐
-│    fa_st_tickets_activities              │         │
+│    ksf_supporttickets_tickets_activities              │         │
 │ ┌────────────────────────────────────┐──────────┤
 │ │ id (PK)                            │          │
-│ │ ticket_id (FK) ──────► fa_st_tickets │          │
+│ │ ticket_id (FK) ──────► ksf_supporttickets_tickets │          │
 │ │ activity_type, direction          │          │
 │ │ subject, message                │          │
 │ │ email_from, email_to            │          │
@@ -200,10 +200,10 @@ EventManager::listen('warranty.claimed', function($event) { ... })
 └────────────────────────────────────────┘
 
 ┌──────────────────────────┬─────────────────────────┐
-│    fa_st_tickets_notes               │         │
+│    ksf_supporttickets_tickets_notes               │         │
 │ ┌────────────────────────────────────┐──────────┤
 │ │ id (PK)                            │          │
-│ │ ticket_id (FK) ──────► fa_st_tickets│          │
+│ │ ticket_id (FK) ──────► ksf_supporttickets_tickets│          │
 │ │ note                              │          │
 │ │ note_type                        │          │
 │ │ created_by, created_at          │          │
@@ -211,10 +211,10 @@ EventManager::listen('warranty.claimed', function($event) { ... })
 └────────────��─��─────────────────────────┘
 
 ┌──────────────────────────┬─────────────────────────┐
-│    fa_st_tickets_items               │         │
+│    ksf_supporttickets_tickets_items               │         │
 │ ┌────────────────────────────────────┐──────────┤
 │ │ id (PK)                            │          │
-│ │ ticket_id (FK) ──────► fa_st_tickets │          │
+│ │ ticket_id (FK) ──────► ksf_supporttickets_tickets │          │
 │ │ item_type, item_description        │          │
 │ │ quantity, unit_price, unit       │          │
 │ │ invoice_id (FK)                 │          │
@@ -225,9 +225,9 @@ EventManager::listen('warranty.claimed', function($event) { ... })
 
 ### 3.2 Table Details
 
-#### fa_st_tickets
+#### ksf_supporttickets_tickets
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_number` VARCHAR(30) NOT NULL,
     `subject` VARCHAR(255) NOT NULL,
@@ -256,9 +256,9 @@ CREATE TABLE `@TB_PREF@fa_st_tickets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_activities
+#### ksf_supporttickets_tickets_activities
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_activities` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_activities` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `activity_type` VARCHAR(20) NOT NULL,
@@ -280,9 +280,9 @@ CREATE TABLE `@TB_PREF@fa_st_tickets_activities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_notes
+#### ksf_supporttickets_tickets_notes
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_notes` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_notes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `note` TEXT NOT NULL,
@@ -294,9 +294,9 @@ CREATE TABLE `@TB_PREF@fa_st_tickets_notes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### fa_st_tickets_items
+#### ksf_supporttickets_tickets_items
 ```sql
-CREATE TABLE `@TB_PREF@fa_st_tickets_items` (
+CREATE TABLE `@TB_PREF@ksf_supporttickets_tickets_items` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ticket_id` INT(11) NOT NULL,
     `item_type` VARCHAR(20) DEFAULT 'Service',
@@ -499,7 +499,7 @@ User submits ticket form
         ▼
 st_db::add_ticket()
         │
-        ├─► Insert to fa_st_tickets
+        ├─► Insert to ksf_supporttickets_tickets
         │
         ▼
 st_dispatch_event('ticket.created')

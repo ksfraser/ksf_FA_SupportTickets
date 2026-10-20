@@ -25,7 +25,7 @@ function add_ticket($ticket_data)
 {
     $ticket_number = 'TKT-' . date('Ymd') . '-' . str_pad(time() % 10000, 4, '0', STR_PAD_LEFT);
     
-    $sql = "INSERT INTO " . TB_PREF . "fa_st_tickets
+    $sql = "INSERT INTO " . TB_PREF . "ksf_supporttickets_tickets
         (ticket_number, subject, description, type, priority, status, debtor_no, contact_id,
          warranty_id, assigned_to, team_id, created_by)
     VALUES (" . db_escape($ticket_number) . ",
@@ -45,7 +45,7 @@ function add_ticket($ticket_data)
     $ticket_id = db_insert_id();
     
     st_dispatch_event('ticket.created', ['ticket_id' => $ticket_id, 'data' => $ticket_data]);
-    st_dispatch_event('db_postinsert', ['table' => 'fa_st_tickets', 'id' => $ticket_id]);
+    st_dispatch_event('db_postinsert', ['table' => 'ksf_supporttickets_tickets', 'id' => $ticket_id]);
     
     return $ticket_id;
 }
@@ -53,7 +53,7 @@ function add_ticket($ticket_data)
 function get_ticket($ticket_id)
 {
     $sql = "SELECT t.*, d.name as customer_name
-        FROM " . TB_PREF . "fa_st_tickets t
+        FROM " . TB_PREF . "ksf_supporttickets_tickets t
         LEFT JOIN " . TB_PREF . "debtors_master d ON t.debtor_no = d.debtor_no
         WHERE t.id = " . db_escape($ticket_id);
     $result = db_query($sql, "Could not get ticket");
@@ -62,7 +62,7 @@ function get_ticket($ticket_id)
 
 function update_ticket($ticket_id, $ticket_data)
 {
-    $sql = "UPDATE " . TB_PREF . "fa_st_tickets SET
+    $sql = "UPDATE " . TB_PREF . "ksf_supporttickets_tickets SET
         subject = " . db_escape($ticket_data['subject']) . ",
         description = " . db_escape($ticket_data['description']) . ",
         type = " . db_escape($ticket_data['type']) . ",
@@ -78,22 +78,22 @@ function update_ticket($ticket_id, $ticket_data)
     db_query($sql, "Could not update ticket");
     
     st_dispatch_event('ticket.updated', ['ticket_id' => $ticket_id, 'data' => $ticket_data]);
-    st_dispatch_event('db_postupdate', ['table' => 'fa_st_tickets', 'id' => $ticket_id]);
+    st_dispatch_event('db_postupdate', ['table' => 'ksf_supporttickets_tickets', 'id' => $ticket_id]);
 }
 
 function delete_ticket($ticket_id)
 {
     $old = get_ticket($ticket_id);
-    $sql = "DELETE FROM " . TB_PREF . "fa_st_tickets WHERE id = " . db_escape($ticket_id);
+    $sql = "DELETE FROM " . TB_PREF . "ksf_supporttickets_tickets WHERE id = " . db_escape($ticket_id);
     db_query($sql, "Could not delete ticket");
     
     st_dispatch_event('ticket.deleted', ['ticket_id' => $ticket_id, 'old_data' => $old]);
-    st_dispatch_event('db_postdelete', ['table' => 'fa_st_tickets', 'id' => $ticket_id]);
+    st_dispatch_event('db_postdelete', ['table' => 'ksf_supporttickets_tickets', 'id' => $ticket_id]);
 }
 
 function add_ticket_activity($ticket_id, $activity_data)
 {
-    $sql = "INSERT INTO " . TB_PREF . "fa_st_tickets_activities
+    $sql = "INSERT INTO " . TB_PREF . "ksf_supporttickets_tickets_activities
         (ticket_id, activity_type, direction, subject, message, email_from, email_to,
          phone_number, duration_minutes, assigned_to, scheduled_at, completed_at, status)
     VALUES (" . db_escape($ticket_id) . ",
@@ -116,7 +116,7 @@ function add_ticket_activity($ticket_id, $activity_data)
 
 function get_ticket_activities($ticket_id)
 {
-    $sql = "SELECT * FROM " . TB_PREF . "fa_st_tickets_activities
+    $sql = "SELECT * FROM " . TB_PREF . "ksf_supporttickets_tickets_activities
         WHERE ticket_id = " . db_escape($ticket_id) . "
         ORDER BY created_at DESC";
     $result = db_query($sql, "Could not get activities");
@@ -129,7 +129,7 @@ function get_ticket_activities($ticket_id)
 
 function add_ticket_note($ticket_id, $note_data)
 {
-    $sql = "INSERT INTO " . TB_PREF . "fa_st_tickets_notes
+    $sql = "INSERT INTO " . TB_PREF . "ksf_supporttickets_tickets_notes
         (ticket_id, note, note_type, created_by)
     VALUES (" . db_escape($ticket_id) . ",
             " . db_escape($note_data['note']) . ",
@@ -142,7 +142,7 @@ function add_ticket_note($ticket_id, $note_data)
 
 function get_ticket_notes($ticket_id)
 {
-    $sql = "SELECT * FROM " . TB_PREF . "fa_st_tickets_notes
+    $sql = "SELECT * FROM " . TB_PREF . "ksf_supporttickets_tickets_notes
         WHERE ticket_id = " . db_escape($ticket_id) . "
         ORDER BY created_at DESC";
     $result = db_query($sql, "Could not get notes");
@@ -156,7 +156,7 @@ function get_ticket_notes($ticket_id)
 function add_ticket_item($ticket_id, $item_data)
 {
     $line_total = ($item_data['quantity'] ?? 1) * ($item_data['unit_price'] ?? 0);
-    $sql = "INSERT INTO " . TB_PREF . "fa_st_tickets_items
+    $sql = "INSERT INTO " . TB_PREF . "ksf_supporttickets_tickets_items
         (ticket_id, item_type, item_description, quantity, unit_price, unit, invoice_id)
     VALUES (" . db_escape($ticket_id) . ",
             " . db_escape($item_data['item_type']) . ",
@@ -172,7 +172,7 @@ function add_ticket_item($ticket_id, $item_data)
 
 function get_ticket_items($ticket_id)
 {
-    $sql = "SELECT * FROM " . TB_PREF . "fa_st_tickets_items
+    $sql = "SELECT * FROM " . TB_PREF . "ksf_supporttickets_tickets_items
         WHERE ticket_id = " . db_escape($ticket_id);
     $result = db_query($sql, "Could not get items");
     $items = [];

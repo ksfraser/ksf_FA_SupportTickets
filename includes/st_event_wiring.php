@@ -18,7 +18,7 @@ EventManager::listen('ticket.created', function($event) {
         error_log("Warranty event wiring: Ticket created linked to warranty {$warrantyId}");
         
         global $db;
-        $sql = "UPDATE " . TB_PREF . "fa_wm_liability SET 
+        $sql = "UPDATE " . TB_PREF . "ksf_warrantymanagement_liability SET 
             status = 'Claimed',
             current_value = 0
             WHERE id = " . db_escape($warrantyId);
@@ -39,7 +39,7 @@ EventManager::listen('ticket.updated', function($event) {
     if ($data['data']['status'] === 'Resolved' && !empty($data['ticket_id'])) {
         $ticketId = $data['ticket_id'];
         
-        $sql = "SELECT warranty_id FROM " . TB_PREF . "fa_st_tickets WHERE id = " . db_escape($ticketId);
+        $sql = "SELECT warranty_id FROM " . TB_PREF . "ksf_supporttickets_tickets WHERE id = " . db_escape($ticketId);
         $result = db_query($sql, "Could not get ticket");
         $ticket = db_fetch_assoc($result);
         
@@ -61,7 +61,7 @@ EventManager::listen('warranty.claimed', function($event) {
         $ticketId = $data['ticket_id'];
         
         global $db;
-        $sql = "UPDATE " . TB_PREF . "fa_st_tickets SET 
+        $sql = "UPDATE " . TB_PREF . "ksf_supporttickets_tickets SET 
             status = 'InProgress',
             resolution = 'Warranty claim in progress'
             WHERE id = " . db_escape($ticketId);
@@ -78,7 +78,7 @@ EventManager::listen('warranty.expired', function($event) {
         $warrantyId = $data['warranty_id'];
         
         global $db;
-        $sql = "SELECT id FROM " . TB_PREF . "fa_st_tickets 
+        $sql = "SELECT id FROM " . TB_PREF . "ksf_supporttickets_tickets 
             WHERE warranty_id = " . db_escape($warrantyId) . "
             AND status NOT IN ('Closed', 'Resolved')";
         $result = db_query($sql, "Could not get linked tickets");
@@ -102,7 +102,7 @@ EventManager::listen('rma.created', function($event) {
         $ticketId = $data['ticket_id'];
         
         global $db;
-        $sql = "UPDATE " . TB_PREF . "fa_st_tickets SET 
+        $sql = "UPDATE " . TB_PREF . "ksf_supporttickets_tickets SET 
             status = 'InProgress',
             resolution = 'RMA {$rmaId} in progress'
             WHERE id = " . db_escape($ticketId);

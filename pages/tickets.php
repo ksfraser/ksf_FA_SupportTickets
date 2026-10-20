@@ -97,7 +97,7 @@ submit_center($Mode == 'EDIT_ITEM' ? _("Update") : _("Create Ticket"), true, '',
 
 $sql = "SELECT t.id, t.ticket_number, t.subject, t.type, t.status, t.priority, t.state, 
                t.created_at, d.name as customer_name
-        FROM " . TB_PREF . "fa_st_tickets t
+        FROM " . TB_PREF . "ksf_supporttickets_tickets t
         LEFT JOIN " . TB_PREF . "debtors_master d ON t.debtor_no = d.debtor_no
         ORDER BY t.created_at DESC";
 
