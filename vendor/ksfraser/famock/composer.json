@@ -1,0 +1,40 @@
+{
+    "name": "ksfraser/famock",
+    "description": "FrontAccounting function mocks for unit testing",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Fraser",
+            "email": "kevin@ksfraser.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ksfraser\\FAMock\\": "php/"
+        },
+        "files": [
+            "php/FAMock.php",
+            "php/TestDbResult.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ksfraser\\FAMock\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.2.x-dev"
+        }
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
+    }
+}

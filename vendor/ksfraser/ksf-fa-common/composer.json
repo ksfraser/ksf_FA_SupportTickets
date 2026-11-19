@@ -1,0 +1,41 @@
+{
+    "name": "ksfraser/ksf-fa-common",
+    "description": "Shared FrontAccounting platform utilities, contracts, and extension points for the KSF ecosystem",
+    "type": "library",
+    "license": "proprietary",
+    "version": "1.2.0",
+    "require": {
+        "php": ">=7.3",
+        "ksfraser/exceptions": "^1.3",
+        "ksfraser/related-to-core": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ksfraser\\FrontAccounting\\Common\\": "src/",
+            "Ksfraser\\Frontaccounting\\HTML\\": "src/HTML/"
+        },
+        "files": [
+            "src/logging_functions.php",
+            "src/compat.php",
+            "src/autoload.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "ksf": {
+            "module-type": "platform-common"
+        }
+    },
+    "require-dev": {
+        "ksfraser/famock": "^0.10",
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ksfraser\\FrontAccounting\\Common\\Tests\\": "tests/",
+            "Ksfraser\\Frontaccounting\\HTML\\Tests\\": "tests/"
+        }
+    }
+}

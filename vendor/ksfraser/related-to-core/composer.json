@@ -1,0 +1,33 @@
+{
+    "name": "ksfraser/related-to-core",
+    "description": "Framework-agnostic related-records core: DTOs, repository interface, exceptions, and UI renderer contracts",
+    "type": "library",
+    "license": "GPL-3.0",
+    "version": "1.0.1",
+    "authors": [
+        {
+            "name": "Kevin Fraser",
+            "email": "kevin@ksfraser.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "ksfraser\\RelatedTo\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "process-timeout": 0,
+        "platform": {
+            "php": "7.4.33"
+        }
+    },
+    "repositories": []
+}
